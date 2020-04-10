@@ -75,6 +75,12 @@ export function validateCitationID (id: string, strict: boolean = false): Boolea
     // and clean, and whoever wants to use Internet Explorer can go
     // someplace else.
     // See the discussion here: https://groups.google.com/forum/#!topic/pandoc-discuss/Dwgim0y8VEs
-    return /^@?[\p{L}\d_][\p{L}\d_:.#$%&\-+?<>~\/]*$/u.test(id)
+    
+    /* Firefox does not support Unicode property escapes (\p{...}):
+     * https://bugzilla.mozilla.org/show_bug.cgi?id=1361876
+     * Temporarily removing non-strict mode to work around problem
+     */
+    throw new Error('Citr only supports strict mode for browser compatibility');
+    // return /^@?[\p{L}\d_][\p{L}\d_:.#$%&\-+?<>~\/]*$/u.test(id)
   }
 }
